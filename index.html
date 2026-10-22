@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="th">
+<head><meta name="robots" content="noindex, nofollow"><meta name="googlebot" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#35654E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="AOM">
+<title>AOM มือถือ ทดลอง</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+/* Layout: แอปมือถือคอลัมน์เดียว (กว้างสุด 440px) · แถบบนบอกว่าเป็นตัวอย่าง · เมนูล่างติดขอบจอ — สีตามธีมบริษัท (Forest / Moss / Desert / Linen) */
+:root{
+  --bg:#f2f0eb; --panel:#fdfcf9; --ink:#24302a; --ink2:#5c645e; --ink3:#8b8f8a; --line:#E2E0D8; --line2:#ecebe5;
+  --forest:#35654E; --forest2:#e2ebe5; --moss:#789474; --desert:#A9947A; --linen:#E2E0D8; --on-forest:#ffffff;
+  --danger:#a8432e; --danger2:#f6e6df; --warn:#80612b; --warn2:#f3ead8; --info:#4a6886; --info2:#e4eaf1;
+  --scrim:rgba(36,48,42,.45); --toast:#24302a; --toast-ink:#fdfcf9;
+  --font:"Noto Sans Thai","Leelawadee UI",Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#151c18; --panel:#1d2621; --ink:#e6ebe7; --ink2:#a9b3ac; --ink3:#7d877f; --line:#2f3a33; --line2:#26302a;
+  --forest:#6fa88b; --forest2:#21362b; --moss:#93ad8f; --desert:#c2ad92; --linen:#2f3a33; --on-forest:#0f1712;
+  --danger:#e08a73; --danger2:#3a2620; --warn:#d6b06a; --warn2:#352c1a; --info:#8fb0d1; --info2:#1f2a36;
+  --scrim:rgba(0,0,0,.55); --toast:#e6ebe7; --toast-ink:#151c18; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#151c18; --panel:#1d2621; --ink:#e6ebe7; --ink2:#a9b3ac; --ink3:#7d877f; --line:#2f3a33; --line2:#26302a;
+  --forest:#6fa88b; --forest2:#21362b; --moss:#93ad8f; --desert:#c2ad92; --linen:#2f3a33; --on-forest:#0f1712;
+  --danger:#e08a73; --danger2:#3a2620; --warn:#d6b06a; --warn2:#352c1a; --info:#8fb0d1; --info2:#1f2a36;
+  --scrim:rgba(0,0,0,.55); --toast:#e6ebe7; --toast-ink:#151c18; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--font);margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:10px 12px;min-height:44px}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--forest);outline-offset:2px}
+input,textarea,select{width:100%;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:10px 12px}
+.app{max-width:440px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;background:var(--bg);position:relative}
+.demo{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12.5px;background:var(--warn2);color:var(--warn);
+  padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px))}
+.demo select{width:auto;padding:4px 8px;min-height:32px;font-size:12.5px;background:var(--panel)}
+.demo label{display:flex;gap:6px;align-items:center}
+.demo input{width:auto}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:3px solid var(--forest);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;gap:10px}
+.logo{background:var(--forest);color:var(--on-forest);border-radius:7px;padding:1px 8px;font-weight:600;font-size:13px;letter-spacing:.4px}
+.top .t{font-weight:600}
+.top .q{margin-left:auto;font-size:12px;color:var(--warn)}
+main{flex:1;display:flex;flex-direction:column;gap:10px;padding:14px max(16px,env(safe-area-inset-right,0px)) 18px max(16px,env(safe-area-inset-left,0px))}
+.hello .d{font-size:13px;color:var(--ink2)} .hello .n{font-size:21px;font-weight:600;text-wrap:balance}
+.hello .s{font-size:13px;color:var(--ink2)}
+.sec{font-size:13px;color:var(--ink3);margin-top:6px;letter-spacing:.2px}
+.cd{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.cd.od{border-left:5px solid var(--danger);border-radius:4px 14px 14px 4px}
+.cd.dn{color:var(--ink3)}
+.cd .tt{font-weight:600}
+.cd .mt{font-size:13px;color:var(--ink2)}
+.late{font-size:12px;color:var(--danger);font-weight:500}
+.pill{font-size:12px;padding:2px 8px;border-radius:999px;align-self:flex-start}
+.p-wait{background:var(--warn2);color:var(--warn)} .p-doing{background:var(--info2);color:var(--info)} .p-done{background:var(--forest2);color:var(--forest)}
+.bt{display:flex;gap:8px;margin-top:8px}
+.bt button{flex:1;font-size:14px}
+.ok{background:var(--forest);color:var(--on-forest);border-color:var(--forest);font-weight:500}
+nav{position:sticky;bottom:0;z-index:5;display:flex;background:var(--panel);border-top:1px solid var(--line);
+  padding:0 max(0px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(0px,env(safe-area-inset-left,0px))}
+nav button{flex:1;border:0;border-radius:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:12px;color:var(--ink2);padding:8px 0 9px}
+nav button .i{font-size:21px;line-height:1.1}
+nav button.on{color:var(--forest);font-weight:600;box-shadow:inset 0 3px 0 var(--forest)}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.lbl{font-size:12.5px;color:var(--ink3)}
+.steps{display:flex;flex-direction:column;gap:6px}
+.st{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--ink2)}
+.st .dt{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);flex:none}
+.st.done .dt{background:var(--forest);border-color:var(--forest)} .st.cur{color:var(--ink);font-weight:600} .st.cur .dt{border-color:var(--forest)}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center}
+.cal .h{font-size:12px;color:var(--ink3)}
+.cal button{min-height:44px;padding:4px 0;border-radius:10px;font-size:14px;font-variant-numeric:tabular-nums;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.cal button.td{background:var(--forest2);color:var(--forest);font-weight:600}
+.cal button.sel{outline:2px solid var(--forest);outline-offset:-2px}
+.dot{width:6px;height:6px;border-radius:50%;display:block}
+.d-job{background:var(--info)} .d-off{background:var(--desert)}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--ink2)} .legend span{display:flex;gap:5px;align-items:center}
+.off{background:var(--warn2);color:var(--warn);border-color:transparent;cursor:default}
+.who{display:flex;justify-content:space-between;align-items:center;text-align:left}
+.who .r{font-size:13px}
+.sheet{position:fixed;inset:0;background:var(--scrim);display:flex;align-items:flex-end;justify-content:center;z-index:10}
+.sheet .in{background:var(--panel);width:100%;max-width:440px;border-radius:18px 18px 0 0;display:flex;flex-direction:column;gap:8px;
+  padding:16px max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sheet .h{font-weight:600}
+.err{font-size:13px;color:var(--danger);min-height:1em}
+.toast{position:fixed;left:50%;transform:translateX(-50%);width:min(408px,calc(100% - 32px));bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:20;background:var(--toast);color:var(--toast-ink);border-radius:12px;padding:10px 14px;font-size:13.5px;text-align:center}
+.empty{text-align:center;color:var(--ink2);cursor:default}
+.back{align-self:flex-start;min-height:36px;padding:6px 12px;font-size:13px}
+@media (prefers-reduced-motion:no-preference){.sheet .in{animation:up .18s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px)}</style>
+<style>
+/* ══ 🫧 Liquid Glass (22 ต.ค. 69) — แบบเดียวกับ AOM Platform: พื้นเขียวป่านิ่ง · การ์ดกระจกใส (ไม่เบลอ = เบาเครื่อง)
+   เบลอเฉพาะแถบบน · เมนูล่าง · หน้าต่างล่าง (sheet) · toast · สลับสว่าง/มืดที่ปุ่มมุมขวาบน (จำในเครื่อง) */
+:root{--glass:rgba(253,252,249,.72); --glass-hi:rgba(255,255,255,.88); --edge:rgba(255,255,255,.75); --hair:rgba(36,48,42,.09);
+  --sh:0 1px 2px rgba(36,48,42,.04),0 6px 20px rgba(36,48,42,.08); --w1:rgba(53,101,78,.30); --w2:rgba(120,148,116,.32); --w3:rgba(169,148,122,.22); --ok-bg:#35654E}
+:root[data-theme="dark"]{--glass:rgba(28,38,33,.66); --glass-hi:rgba(44,57,50,.8); --edge:rgba(255,255,255,.09); --hair:rgba(255,255,255,.08);
+  --sh:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3); --w1:rgba(53,101,78,.45); --w2:rgba(70,110,85,.28); --w3:rgba(120,95,60,.16); --ok-bg:#3f7a5d}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--glass:rgba(28,38,33,.66); --glass-hi:rgba(44,57,50,.8); --edge:rgba(255,255,255,.09); --hair:rgba(255,255,255,.08);
+  --sh:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3); --w1:rgba(53,101,78,.45); --w2:rgba(70,110,85,.28); --w3:rgba(120,95,60,.16); --ok-bg:#3f7a5d}}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(80vw 60vw at 0% 0%,var(--w1),transparent 70%),radial-gradient(70vw 70vw at 100% 40%,var(--w2),transparent 70%),radial-gradient(90vw 60vw at 40% 105%,var(--w3),transparent 70%)}
+.app{background:transparent}
+.demo{margin:8px 10px 0;border-radius:14px;border:1px solid var(--edge)}
+.top{top:calc(env(safe-area-inset-top,0px) + 8px);margin:8px 10px 0;border-radius:18px;border:1px solid var(--edge);border-bottom:1px solid var(--edge);
+  background:var(--glass);-webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%);box-shadow:var(--sh),inset 0 1px 0 var(--edge)}
+.top .q{margin-left:0}
+.thb{margin-left:auto;min-height:34px;width:34px;padding:0;border-radius:999px;background:var(--glass-hi);border:1px solid var(--hair);font-size:15px;box-shadow:inset 0 1px 0 var(--edge)}
+.logo{background:var(--ok-bg);color:#fff}
+.cd,.box{background:var(--glass);border:1px solid var(--edge);border-radius:18px;box-shadow:var(--sh),inset 0 1px 0 var(--edge)}
+.cd.od{border-left:5px solid var(--danger);border-radius:6px 18px 18px 6px}
+.cd.off{background:var(--warn2)}
+button{border-radius:999px;background:var(--glass-hi);border-color:var(--hair);box-shadow:inset 0 1px 0 var(--edge)}
+.ok{background:var(--ok-bg);border-color:var(--ok-bg);color:#fff;box-shadow:0 3px 10px rgba(53,101,78,.28),inset 0 1px 0 rgba(255,255,255,.3)}
+input,textarea,select{border-radius:12px;background:var(--glass-hi);border-color:var(--hair)}
+.cal button{border-radius:12px}
+.pill{border-radius:999px}
+/* เมนูล่างลอยแบบ Tab bar ของ iOS */
+nav{bottom:calc(env(safe-area-inset-bottom,0px) + 10px);margin:0 10px 10px;padding:5px;gap:2px;border-radius:24px;border:1px solid var(--edge);
+  background:var(--glass);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);box-shadow:var(--sh),inset 0 1px 0 var(--edge)}
+nav button{border-radius:18px;padding:6px 0 7px;box-shadow:none;background:transparent}
+nav button.on{background:var(--glass-hi);color:var(--forest);box-shadow:0 1px 6px rgba(0,0,0,.08),inset 0 1px 0 var(--edge)}
+.sheet{background:rgba(15,30,22,.25)}
+:root[data-theme="dark"] .sheet{background:rgba(0,0,0,.45)}
+.sheet .in{background:var(--glass);border:1px solid var(--edge);border-bottom:0;border-radius:24px 24px 0 0;-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);box-shadow:0 -10px 40px rgba(0,0,0,.18),inset 0 1px 0 var(--edge)}
+.toast{background:rgba(30,42,36,.85);color:#fff;border-radius:999px;border:1px solid rgba(255,255,255,.12);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.top,nav,.sheet .in{background:var(--panel)}}
+</style>
+<script>(function(){ var t = null; try { t = localStorage.getItem("aom_m_theme"); } catch(e){} if(t) document.documentElement.setAttribute("data-theme", t); })();</script>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="demo">
+    <span>ตัวอย่างทดลอง · ข้อมูลสมมติ ไม่บันทึกจริง</span>
+    <select id="who" aria-label="ดูแบบ"><option value="กอล์ฟ">ดูแบบช่าง (กอล์ฟ)</option><option value="Jirayu">ดูแบบหัวหน้า (Jirayu)</option></select>
+  </div>
+  <div class="top"><span class="logo">AOM</span><span class="t" id="ttl">งานของฉัน</span><span class="q" id="q"></span><button class="thb" id="thb" aria-label="สลับโหมดสว่าง / มืด"></button></div>
+  <main id="bd"><div class="hello"><div class="d">กำลังโหลด…</div></div></main>
+  <nav id="nv"></nav>
+</div>
+<script>
+var TODAY = "2026-10-20", MON = "ต.ค.", DOW = ["อา","จ","อ","พ","พฤ","ศ","ส"], DOWL = ["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัสบดี","ศุกร์","เสาร์"];
+var T = [
+ {id:1,no:"AOM-2610-012",p:"SRT1",t:"เปลี่ยน Inverter 3",prob:"INV3 trip ซ้ำ ไฟ fault ที่ฝั่ง DC",s:"2026-10-14",d:"2026-10-15",w:"กอล์ฟ",st:"todo",ct:"คุณสมชาย · ผู้ดูแลไซต์ · 08-1234-5678",steps:["Operation ประเมิน","Maintenance เข้าแก้ไข","Operation ยืนยันระบบกลับมา"],cur:1},
+ {id:2,no:"PM-QPM-104",p:"TAP-C",t:"ล้างแผง (QPM)",prob:"งานตามรอบไตรมาส 4",s:"2026-10-19",d:"2026-10-20",w:"กอล์ฟ",st:"todo",ct:"คุณวิไล · ฝ่ายอาคาร · 08-2345-6789",steps:["Maintenance ล้างแผง","ส่งรายงาน PM ให้ลูกค้า"],cur:0},
+ {id:3,no:"AOM-2610-018",p:"GHM",t:"ตรวจ PQM",prob:"Power factor ต่ำผิดปกติ",s:"2026-10-20",d:"2026-10-21",w:"กอล์ฟ",st:"todo",ct:"คุณอนันต์ · 08-3456-7890",steps:["Maintenance ตรวจหน้างาน","Operation สรุปผล"],cur:0},
+ {id:4,no:"AOM-2610-021",p:"KVC",t:"ตรวจ hot spot",prob:"ภาพ thermal พบจุดร้อน 3 แผง",s:"2026-10-23",d:"2026-10-24",w:"กอล์ฟ",st:"todo",ct:"คุณปรีชา · 08-4567-8901",steps:["Maintenance ตรวจ","Asset แจ้งลูกค้า"],cur:0},
+ {id:5,no:"AOM-2610-009",p:"CHT",t:"ตรวจ string inv35",prob:"wiremark hot spot",s:"2026-10-18",d:"2026-10-19",w:"Jirayu",st:"todo",ct:"คุณรัตนา · 08-5678-9012",steps:["Maintenance ตรวจ","Operation ยืนยัน"],cur:0},
+ {id:6,no:"AOM-2610-024",p:"NIFCO",t:"เปลี่ยน DC fuse",prob:"Fuse ขาด 2 string",s:"2026-10-21",d:"2026-10-22",w:"",st:"todo",ct:"คุณสุดา · 08-6789-0123",steps:["Operation ประเมิน","Maintenance เปลี่ยน fuse"],cur:1},
+ {id:7,no:"AOM-2610-025",p:"AFCT",t:"ตรวจ Inverter COM2-13",prob:"Abnormal external fan",s:"2026-10-22",d:"2026-10-23",w:"",st:"todo",ct:"คุณธีระ · 08-7890-1234",steps:["Maintenance ตรวจ"],cur:0},
+ {id:8,no:"AOM-2610-003",p:"BCM",t:"เปลี่ยนพัดลม Inverter",prob:"พัดลมเสีย",s:"2026-10-09",d:"2026-10-10",w:"กอล์ฟ",st:"done",ct:"คุณบุญมี · 08-8901-2345",steps:["Maintenance เปลี่ยน"],cur:1,note:"เปลี่ยนพัดลมแล้ว ระบบปกติ",doneAt:"2026-10-10 15:20"}
+];
+var BUSY = [{n:"ช่างเศรษฐ",s:"2026-10-21",e:"2026-10-22",k:"ลาพักร้อน"},{n:"แบงค์",s:"2026-10-22",e:"2026-10-22",k:"ออกหน้างาน"},{n:"กอล์ฟ",s:"2026-10-27",e:"2026-10-27",k:"ลากิจ"}];
+var PPL = ["กอล์ฟ","ช่างเศรษฐ","แบงค์","Jirayu"];
+var tab = "my", open = null, sheet = null, q = "", calSel = TODAY, pend = 0;
+var $ = function(id){ return document.getElementById(id); };
+var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
+var dd = function(x){ return (+x.slice(8)) + " " + MON; };
+var ddt = function(x){ return dd(x.slice(0, 10)) + (x.length > 10 ? " " + x.slice(11) + " น." : ""); };
+var pad = function(n){ return (n < 10 ? "0" : "") + n; };
+var diff = function(a, b){ return Math.round((new Date(b) - new Date(a)) / 864e5); };
+var me = function(){ return $("who").value; }, lead = function(){ return me() === "Jirayu"; };
+function toast(m){ var e = document.createElement("div"); e.className = "toast"; e.setAttribute("role", "status"); e.textContent = m; $("app").appendChild(e); setTimeout(function(){ e.remove(); }, 2000); }
+function act(t, st, msg){ t.st = st; toast(msg); sheet = null; draw(); }
+function btns(t){ return '<div class="bt">' + (t.st === "doing" ? "" : '<button data-a="start" data-i="' + t.id + '">▶ เริ่ม</button>') + '<button data-a="wait" data-i="' + t.id + '">⏸ รอ</button><button class="ok" data-a="done" data-i="' + t.id + '">✓ เสร็จ</button></div>'; }
+function card(t){
+  var od = t.st !== "done" && t.d < TODAY;
+  return '<div class="cd' + (od ? " od" : "") + (t.st === "done" ? " dn" : "") + '" data-o="' + t.id + '" role="button" tabindex="0">' +
+    (od ? '<span class="late">เลยกำหนด ' + diff(t.d, TODAY) + ' วัน</span>' : "") +
+    (t.st === "wait" ? '<span class="pill p-wait">⏸ ' + esc(t.wr) + "</span>" : t.st === "doing" ? '<span class="pill p-doing">▶ กำลังทำ</span>' : "") +
+    '<span class="tt">' + esc(t.p) + " · " + esc(t.t) + '</span><span class="mt">' + (t.st === "done" ? "✓ เสร็จ " + (t.doneAt ? ddt(t.doneAt) : "แล้ว") : "ครบ " + dd(t.d)) + " · 📍 นำทาง</span>" +
+    (t.st === "done" || t.w !== me() ? "" : btns(t)) + "</div>";
+}
+function vMy(){
+  var mine = T.filter(function(t){ return t.w === me(); }), a = mine.filter(function(t){ return t.st !== "done"; });
+  var od = a.filter(function(t){ return t.d < TODAY; }), td = a.filter(function(t){ return t.d >= TODAY && t.s <= TODAY; }), nx = a.filter(function(t){ return t.s > TODAY; }), dn = mine.filter(function(t){ return t.st === "done"; });
+  var g = function(ttl, xs){ return xs.length ? '<div class="sec">' + ttl + "</div>" + xs.map(card).join("") : ""; };
+  return '<div class="hello"><div class="d">' + DOWL[new Date(TODAY).getDay()] + " " + dd(TODAY) + ' 69</div><div class="n">สวัสดี ' + esc(me()) + '</div><div class="s">ค้าง ' + a.length + " งาน" +
+    (od.length ? ' · <span style="color:var(--danger)">เลยกำหนด ' + od.length + "</span>" : "") + "</div></div>" +
+    g("เลยกำหนด", od) + g("ต้องทำวันนี้", td) + g("ถัดไป", nx) + (!a.length ? '<div class="cd empty">ไม่มีงานค้าง 👍</div>' : "") + g("เสร็จแล้ว", dn.slice(0, 2));
+}
+function vDetail(t){
+  var od = t.st !== "done" && t.d < TODAY;
+  return '<button class="back" data-a="back">← กลับ</button>' +
+    '<div><div class="lbl">' + esc(t.no) + '</div><div style="font-size:20px;font-weight:600">' + esc(t.p) + "</div><div>" + esc(t.t) + "</div></div>" +
+    '<div class="box"><span class="lbl">อาการ / สิ่งที่ต้องทำ</span>' + esc(t.prob) + "</div>" +
+    '<div class="box"><div>📅 ' + dd(t.s) + " → " + dd(t.d) + (od ? ' <span class="late">(เลย ' + diff(t.d, TODAY) + " วัน)</span>" : "") + "</div><div>👤 " + esc(t.ct) + "</div>" +
+    '<div class="bt" style="margin-top:4px"><button data-a="nav">📍 นำทาง</button><button data-a="call">📞 โทร</button></div></div>' +
+    '<div class="sec">ขั้นตอนของเคส</div><div class="box steps">' + t.steps.map(function(s, i){
+      return '<div class="st' + (i < t.cur ? " done" : i === t.cur ? " cur" : "") + '"><span class="dt"></span>' + esc(s) + (i === t.cur && t.st !== "done" ? " · ขั้นนี้" : "") + "</div>"; }).join("") + "</div>" +
+    (t.st === "done" ? '<span class="pill p-done">✓ เสร็จ ' + (t.doneAt ? ddt(t.doneAt) : "แล้ว") + (t.note ? " · " + esc(t.note) : "") + "</span>"
+      : t.w === me() ? btns(t) : '<div class="lbl">งานนี้อยู่กับ ' + esc(t.w || "ทีม Maintenance (รอมอบหมาย)") + "</div>");
+}
+function vCal(){
+  var first = new Date("2026-10-01").getDay(), h = '<div style="font-size:18px;font-weight:600">' + MON + ' 69</div><div class="cal">' + DOW.map(function(x){ return '<span class="h">' + x + "</span>"; }).join("");
+  for(var i = 0; i < first; i++) h += "<span></span>";
+  for(var d = 1; d <= 31; d++){
+    var k = "2026-10-" + (d < 10 ? "0" : "") + d;
+    var ts = T.filter(function(t){ return t.w === me() && t.st !== "done" && k >= t.s && k <= t.d; }), bz = BUSY.filter(function(b){ return b.n === me() && k >= b.s && k <= b.e; });
+    h += '<button data-c="' + k + '" class="' + (k === TODAY ? "td" : "") + (k === calSel ? " sel" : "") + '" aria-label="' + d + " " + MON + '">' + d + (bz.length ? '<span class="dot d-off"></span>' : ts.length ? '<span class="dot d-job"></span>' : "") + "</button>";
+  }
+  var ts2 = T.filter(function(t){ return t.w === me() && calSel >= t.s && calSel <= t.d; }), bz2 = BUSY.filter(function(b){ return b.n === me() && calSel >= b.s && calSel <= b.e; });
+  return h + '</div><div class="legend"><span><i class="dot d-job"></i>มีงาน</span><span><i class="dot d-off"></i>ลา / ออกหน้างาน</span></div><div class="sec">' + DOWL[new Date(calSel).getDay()] + " " + dd(calSel) + "</div>" +
+    bz2.map(function(b){ return '<div class="cd off">🌴 ' + esc(b.k) + "</div>"; }).join("") + ts2.map(card).join("") + (!ts2.length && !bz2.length ? '<div class="lbl">ว่าง</div>' : "") +
+    '<button data-a="leave">＋ ลงลา / ออกหน้างาน วันนี้</button>';
+}
+function vFind(){
+  var r = T.filter(function(t){ return !q || (t.p + t.t + t.no).toLowerCase().indexOf(q.toLowerCase()) >= 0; });
+  return '<input id="fq" type="search" placeholder="ชื่อโครงการ เช่น SRT1" aria-label="ค้นหาเคส" value="' + esc(q) + '">' +
+    r.map(function(t){ return '<div class="cd" data-o="' + t.id + '" role="button" tabindex="0"><span class="lbl">' + esc(t.no) + '</span><span class="tt">' + esc(t.p) + " · " + esc(t.t) + '</span><span class="mt">' + (t.st === "done" ? "✓ เสร็จแล้ว" : "อยู่กับ " + esc(t.w || "ทีม (รอมอบหมาย)")) + "</span></div>"; }).join("") +
+    (!r.length ? '<div class="cd empty">ไม่พบเคสที่ตรงกับ “' + esc(q) + '”</div>' : "");
+}
+function vAsg(){
+  var r = T.filter(function(t){ return !t.w && t.st !== "done"; });
+  return '<div class="sec">รอมอบหมาย · ทีม Maintenance</div>' + r.map(function(t){ return '<div class="cd" data-g="' + t.id + '" role="button" tabindex="0"><span class="tt">' + esc(t.p) + " · " + esc(t.t) + '</span><span class="mt">' + dd(t.s) + " → " + dd(t.d) + " · แตะเพื่อเลือกคน</span></div>"; }).join("") +
+    (!r.length ? '<div class="cd empty">มอบหมายครบแล้ว 👍</div>' : "");
+}
+function sPick(t){
+  return '<div class="h">มอบหมาย ' + esc(t.p) + " · " + esc(t.t) + '</div><div class="lbl">' + dd(t.s) + " → " + dd(t.d) + " · เรียงคนว่างก่อน</div>" +
+    PPL.map(function(n){ var bz = BUSY.filter(function(b){ return b.n === n && b.s <= t.d && b.e >= t.s; })[0], cl = T.filter(function(x){ return x.w === n && x.st !== "done" && x.s <= t.d && x.d >= t.s; }).length; return {n: n, bz: bz, cl: cl, sc: (bz ? 2 : 0) + cl}; })
+      .sort(function(a, b){ return a.sc - b.sc; }).map(function(x){
+        return '<button class="who" data-a="pick" data-n="' + esc(x.n) + '" data-i="' + t.id + '"><span>' + esc(x.n) + '</span><span class="r" style="color:' + (x.bz ? "var(--warn)" : x.cl ? "var(--danger)" : "var(--forest)") + '">' + (x.bz ? esc(x.bz.k) : x.cl ? "งานซ้อน " + x.cl : "ว่าง") + "</span></button>"; }).join("") +
+    '<button data-a="close">ยกเลิก</button>';
+}
+function draw(){
+  var t = open && T.filter(function(x){ return x.id === open; })[0];
+  var NAV = [["my","☀️","งานของฉัน"],["cal","📅","ปฏิทิน"],["find","🔍","ค้นหาเคส"]].concat(lead() ? [["asg","🙋","มอบหมาย"]] : []);
+  $("ttl").textContent = t ? "รายละเอียดเคส" : NAV.filter(function(n){ return n[0] === tab; })[0][2];
+  $("bd").innerHTML = t ? vDetail(t) : tab === "my" ? vMy() : tab === "cal" ? vCal() : tab === "find" ? vFind() : vAsg();
+  $("nv").innerHTML = NAV.map(function(n){ return '<button data-t="' + n[0] + '" class="' + (tab === n[0] && !open ? "on" : "") + '"><span class="i" aria-hidden="true">' + n[1] + "</span>" + n[2] + "</button>"; }).join("");
+  var old = document.querySelector(".sheet"); if(old) old.remove();
+  if(sheet){ var s = document.createElement("div"); s.className = "sheet"; s.innerHTML = '<div class="in" role="dialog" aria-modal="true">' + sheet + "</div>"; $("app").appendChild(s); }
+  var fq = $("fq"); if(fq) fq.oninput = function(e){ q = e.target.value; var p = fq.selectionStart; draw(); var n = $("fq"); n.focus(); n.setSelectionRange(p, p); };
+}
+$("app").addEventListener("click", function(e){
+  var b = e.target.closest("[data-a],[data-t],[data-o],[data-g],[data-c]"); if(!b) return;
+  if(e.target.closest(".sheet") && !e.target.closest(".in")){ sheet = null; return draw(); }
+  if(b.dataset.t){ tab = b.dataset.t; open = null; sheet = null; window.scrollTo(0, 0); return draw(); }
+  if(b.dataset.c){ calSel = b.dataset.c; return draw(); }
+  if(b.dataset.g){ sheet = sPick(T.filter(function(x){ return x.id == b.dataset.g; })[0]); return draw(); }
+  var a = b.dataset.a, t = b.dataset.i && T.filter(function(x){ return x.id == b.dataset.i; })[0];
+  if(!a && b.dataset.o){ open = +b.dataset.o; window.scrollTo(0, 0); return draw(); }
+  if(a === "back"){ open = null; return draw(); }
+  if(a === "close"){ sheet = null; return draw(); }
+  if(a === "nav") return toast("ของจริง: เปิด Google Maps ไปที่ไซต์");
+  if(a === "call") return toast("ของจริง: โทรหา " + T.filter(function(x){ return x.id === open; })[0].ct);
+  if(a === "start") return act(t, "doing", "เริ่มงาน " + t.p + " แล้ว");
+  if(a === "wait"){ sheet = '<div class="h">พักงานไว้ — รออะไร?</div>' + ["รออะไหล่","รอลูกค้าตอบ","รอผู้รับเหมา","รอสภาพอากาศ"].map(function(r){ return '<button data-a="wr" data-i="' + t.id + '" data-r="' + r + '">' + r + "</button>"; }).join("") + '<button data-a="close">ยกเลิก</button>'; return draw(); }
+  if(a === "wr"){ t.wr = b.dataset.r; return act(t, "wait", "พักงานไว้ · " + t.wr); }
+  if(a === "done"){
+    sheet = '<div class="h">เสร็จงาน ' + esc(t.p) + " · " + esc(t.t) + '</div><label class="lbl" for="nt">ทำอะไรไปบ้าง</label><textarea id="nt" rows="3" placeholder="เช่น เปลี่ยน INV3 แล้ว ระบบกลับมาปกติ"></textarea><div class="err" id="er" aria-live="polite"></div>' +
+      '<div style="display:flex;gap:8px"><div style="flex:1;display:flex;flex-direction:column;gap:4px"><label class="lbl" for="dn">วันที่เสร็จ</label><input id="dn" type="date" value="' + TODAY + '" max="' + TODAY + '"></div>' +
+      '<div style="flex:1;display:flex;flex-direction:column;gap:4px"><label class="lbl" for="tm">เวลาที่เสร็จ</label><input id="tm" type="time" value="' + (function(){ var n = new Date(); return pad(n.getHours()) + ":" + pad(n.getMinutes()); })() + '"></div></div>' +
+      '<div class="err" id="er2" aria-live="polite"></div><button data-a="photo">📷 แนบรูป (ไม่บังคับ)</button><button class="ok" data-a="fin" data-i="' + t.id + '">✓ บันทึกว่าเสร็จ</button><button data-a="close">ยกเลิก</button>';
+    draw(); $("nt").oninput = function(){ $("er").textContent = ""; }; ["dn", "tm"].forEach(function(id){ $(id).oninput = function(){ $("er2").textContent = ""; }; }); $("nt").focus(); return;
+  }
+  if(a === "photo") return toast("ของจริง: เปิดกล้อง แล้วย่อรูปก่อนส่ง");
+  if(a === "fin"){ var v = $("nt").value.trim(), dn = $("dn").value, tm = $("tm").value;
+    if(!v){ $("er").textContent = "เขียนสั้น ๆ ว่าทำอะไรไปก่อน"; $("nt").focus(); return; }
+    if(!dn || !tm){ $("er2").textContent = "ใส่วันที่และเวลาที่เสร็จ"; (dn ? $("tm") : $("dn")).focus(); return; }
+    if(dn > TODAY){ $("er2").textContent = "วันที่เสร็จต้องไม่เกินวันนี้"; $("dn").focus(); return; }
+    t.note = v; t.doneAt = dn + " " + tm; t.cur = t.steps.length; return act(t, "done", "บันทึกว่าเสร็จ " + ddt(t.doneAt) + " · ส่งต่อขั้นถัดไป"); }
+  if(a === "leave"){ sheet = '<div class="h">ลงตาราง ' + dd(calSel) + "</div>" + ["ลาพักร้อน","ลาป่วย","ลากิจ","ออกหน้างาน"].map(function(k){ return '<button data-a="lv" data-k="' + k + '">' + k + "</button>"; }).join("") + '<button data-a="close">ยกเลิก</button>'; return draw(); }
+  if(a === "lv"){ BUSY.push({n: me(), s: calSel, e: calSel, k: b.dataset.k}); sheet = null; toast("ลง" + b.dataset.k + " " + dd(calSel) + " แล้ว"); return draw(); }
+  if(a === "pick"){ t.w = b.dataset.n; sheet = null; toast("มอบหมาย " + t.p + " ให้ " + t.w + " แล้ว"); return draw(); }
+});
+$("app").addEventListener("keydown", function(e){ if((e.key === "Enter" || e.key === " ") && e.target.matches("[role=button]")){ e.preventDefault(); e.target.click(); } });
+/* 🌙 สลับโหมดสี — ยังไม่เลือก = ตามเครื่อง */
+function isDark(){ var a = document.documentElement.getAttribute("data-theme"); return a ? a === "dark" : !!(window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches); }
+function thIcon(){ $("thb").textContent = isDark() ? "☀️" : "🌙"; }
+$("thb").onclick = function(){ var t = isDark() ? "light" : "dark"; document.documentElement.setAttribute("data-theme", t); try { localStorage.setItem("aom_m_theme", t); } catch(e){} thIcon(); };
+thIcon();
+$("who").onchange = function(){ open = null; sheet = null; if(!lead() && tab === "asg") tab = "my"; draw(); };
+draw();
+</script>
+
+</body>
+</html>
